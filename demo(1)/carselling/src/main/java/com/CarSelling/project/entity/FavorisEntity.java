@@ -14,12 +14,13 @@ public class FavorisEntity {
     @Basic
     @Column(name = "idannonce")
     private Integer idannonce;
-    @Basic
-    @Column(name = "id_utilisateur")
-    private Integer idUtilisateur;
+
     @Basic
     @Column(name = "etat")
     private Integer etat;
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur", referencedColumnName = "idutilisateur")
+    private UtilisateurEntity utilisateurByIdUtilisateur;
 
     public Integer getId() {
         return id;
@@ -37,13 +38,6 @@ public class FavorisEntity {
         this.idannonce = idannonce;
     }
 
-    public Integer getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Integer idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
 
     public Integer getEtat() {
         return etat;
@@ -53,16 +47,15 @@ public class FavorisEntity {
         this.etat = etat;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FavorisEntity that = (FavorisEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(idannonce, that.idannonce) && Objects.equals(idUtilisateur, that.idUtilisateur) && Objects.equals(etat, that.etat);
+
+
+
+
+    public UtilisateurEntity getUtilisateurByIdUtilisateur() {
+        return utilisateurByIdUtilisateur;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, idannonce, idUtilisateur, etat);
+    public void setUtilisateurByIdUtilisateur(UtilisateurEntity utilisateurByIdUtilisateur) {
+        this.utilisateurByIdUtilisateur = utilisateurByIdUtilisateur;
     }
 }

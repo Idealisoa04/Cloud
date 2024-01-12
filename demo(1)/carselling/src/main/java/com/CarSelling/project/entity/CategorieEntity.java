@@ -2,6 +2,7 @@ package com.CarSelling.project.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class CategorieEntity {
     @Basic
     @Column(name = "nomcategorie")
     private String nomcategorie;
+    @OneToMany(mappedBy = "categorie")
+    private Collection<ModelEntity> modelsByIdcategorie;
 
     public Integer getIdcategorie() {
         return idcategorie;
@@ -42,5 +45,13 @@ public class CategorieEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idcategorie, nomcategorie);
+    }
+
+    public Collection<ModelEntity> getModelsByIdcategorie() {
+        return modelsByIdcategorie;
+    }
+
+    public void setModelsByIdcategorie(Collection<ModelEntity> modelsByIdcategorie) {
+        this.modelsByIdcategorie = modelsByIdcategorie;
     }
 }

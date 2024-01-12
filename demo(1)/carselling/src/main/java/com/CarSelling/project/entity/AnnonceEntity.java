@@ -1,19 +1,29 @@
 package com.CarSelling.project.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import jakarta.persistence.Id;
 
 @Document(collection = "annonce")
-public class Annonce {
+public class AnnonceEntity {
     @Id
-    private Integer id;
+    private ObjectId _id;
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 
     @Field(name = "date")
-    private Timestamp date;
+    // private Timestamp date;
+    private LocalDateTime date;
 
     @Field(name = "prix")
     private Double prix;
@@ -24,37 +34,29 @@ public class Annonce {
     @Field(name = "statut")
     private Integer statut;
 
-    @Field(name = "desciption")
+    @Field(name = "description")
     private String description;
 
     @Field(name = "modele")
-    private Modele modele;
+    private ModelEntity modele;
 
     @Field(name = "kilometrage")
     private Double kilometrage;
 
     @Field(name = "jante")
-    private Jante jante;
+    private JanteEntity jante;
 
     @Field(name = "moteur")
-    private Moteur moteur;
+    private MoteurEntity moteur;
 
     @Field(name = "couleur")
     private String couleur;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Timestamp getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -90,11 +92,11 @@ public class Annonce {
         this.description = description;
     }
 
-    public Modele getModele() {
+    public ModelEntity getModele() {
         return modele;
     }
 
-    public void setModele(Modele modele) {
+    public void setModele(ModelEntity modele) {
         this.modele = modele;
     }
 
@@ -106,19 +108,19 @@ public class Annonce {
         this.kilometrage = kilometrage;
     }
 
-    public Jante getJante() {
+    public JanteEntity getJante() {
         return jante;
     }
 
-    public void setJante(Jante jante) {
+    public void setJante(JanteEntity jante) {
         this.jante = jante;
     }
 
-    public Moteur getMoteur() {
+    public MoteurEntity getMoteur() {
         return moteur;
     }
 
-    public void setMoteur(Moteur moteur) {
+    public void setMoteur(MoteurEntity moteur) {
         this.moteur = moteur;
     }
 
@@ -129,4 +131,5 @@ public class Annonce {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
+
 }

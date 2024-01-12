@@ -3,6 +3,7 @@ package com.CarSelling.project.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -32,7 +33,11 @@ public class UtilisateurEntity {
     private String mdp;
     @Basic
     @Column(name = "isadmin")
-    private String isadmin;
+    private Integer isadmin;
+    @OneToMany(mappedBy = "utilisateurByIdclient")
+    private Collection<AchatEntity> achatsByIdutilisateur;
+    @OneToMany(mappedBy = "utilisateurByIdUtilisateur")
+    private Collection<FavorisEntity> favorisesByIdutilisateur;
 
     public Integer getIdutilisateur() {
         return idutilisateur;
@@ -90,11 +95,11 @@ public class UtilisateurEntity {
         this.mdp = mdp;
     }
 
-    public String getIsadmin() {
+    public Integer getIsadmin() {
         return isadmin;
     }
 
-    public void setIsadmin(String isadmin) {
+    public void setIsadmin(Integer isadmin) {
         this.isadmin = isadmin;
     }
 
@@ -109,5 +114,21 @@ public class UtilisateurEntity {
     @Override
     public int hashCode() {
         return Objects.hash(idutilisateur, nom, prenom, dateNaissance, sexe, email, mdp, isadmin);
+    }
+
+    public Collection<AchatEntity> getAchatsByIdutilisateur() {
+        return achatsByIdutilisateur;
+    }
+
+    public void setAchatsByIdutilisateur(Collection<AchatEntity> achatsByIdutilisateur) {
+        this.achatsByIdutilisateur = achatsByIdutilisateur;
+    }
+
+    public Collection<FavorisEntity> getFavorisesByIdutilisateur() {
+        return favorisesByIdutilisateur;
+    }
+
+    public void setFavorisesByIdutilisateur(Collection<FavorisEntity> favorisesByIdutilisateur) {
+        this.favorisesByIdutilisateur = favorisesByIdutilisateur;
     }
 }

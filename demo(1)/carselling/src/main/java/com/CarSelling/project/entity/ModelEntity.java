@@ -1,8 +1,14 @@
 package com.CarSelling.project.entity;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "model", schema = "public", catalog = "carselling")
@@ -14,24 +20,25 @@ public class ModelEntity {
     @Basic
     @Column(name = "nommodel")
     private String nommodel;
-    @Basic
-    @Column(name = "id_categorie")
-    private Integer idCategorie;
-    @Basic
-    @Column(name = "id_marque")
-    private Integer idMarque;
-    @Basic
-    @Column(name = "id_carburant")
-    private Integer idCarburant;
-    @Basic
-    @Column(name = "id_vitesse")
-    private Integer idVitesse;
-    @Basic
-    @Column(name = "nb_portes")
+
+    @Column(name = "nbPortes")
     private Integer nbPortes;
-    @Basic
-    @Column(name = "id_climatisation")
-    private Integer idClimatisation;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categorie", referencedColumnName = "idcategorie")
+    private CategorieEntity categorie;
+    @ManyToOne
+    @JoinColumn(name = "id_marque", referencedColumnName = "idmarque", nullable = false)
+    private MarqueEntity marque;
+    @ManyToOne
+    @JoinColumn(name = "id_carburant", referencedColumnName = "idcarburant")
+    private CarburantEntity carburant;
+    @ManyToOne
+    @JoinColumn(name = "id_vitesse", referencedColumnName = "idvitesse")
+    private VitesseEntity vitesse;
+    @ManyToOne
+    @JoinColumn(name = "id_climatisation", referencedColumnName = "idclimatisation")
+    private ClimatisationEntity climatisation;
 
     public Integer getIdmodel() {
         return idmodel;
@@ -49,38 +56,6 @@ public class ModelEntity {
         this.nommodel = nommodel;
     }
 
-    public Integer getIdCategorie() {
-        return idCategorie;
-    }
-
-    public void setIdCategorie(Integer idCategorie) {
-        this.idCategorie = idCategorie;
-    }
-
-    public Integer getIdMarque() {
-        return idMarque;
-    }
-
-    public void setIdMarque(Integer idMarque) {
-        this.idMarque = idMarque;
-    }
-
-    public Integer getIdCarburant() {
-        return idCarburant;
-    }
-
-    public void setIdCarburant(Integer idCarburant) {
-        this.idCarburant = idCarburant;
-    }
-
-    public Integer getIdVitesse() {
-        return idVitesse;
-    }
-
-    public void setIdVitesse(Integer idVitesse) {
-        this.idVitesse = idVitesse;
-    }
-
     public Integer getNbPortes() {
         return nbPortes;
     }
@@ -89,24 +64,43 @@ public class ModelEntity {
         this.nbPortes = nbPortes;
     }
 
-    public Integer getIdClimatisation() {
-        return idClimatisation;
+    public CategorieEntity getCategorie() {
+        return categorie;
     }
 
-    public void setIdClimatisation(Integer idClimatisation) {
-        this.idClimatisation = idClimatisation;
+    public void setCategorie(CategorieEntity categorie) {
+        this.categorie = categorie;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ModelEntity that = (ModelEntity) o;
-        return Objects.equals(idmodel, that.idmodel) && Objects.equals(nommodel, that.nommodel) && Objects.equals(idCategorie, that.idCategorie) && Objects.equals(idMarque, that.idMarque) && Objects.equals(idCarburant, that.idCarburant) && Objects.equals(idVitesse, that.idVitesse) && Objects.equals(nbPortes, that.nbPortes) && Objects.equals(idClimatisation, that.idClimatisation);
+    public MarqueEntity getMarque() {
+        return marque;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idmodel, nommodel, idCategorie, idMarque, idCarburant, idVitesse, nbPortes, idClimatisation);
+    public void setMarque(MarqueEntity marque) {
+        this.marque = marque;
+    }
+
+    public CarburantEntity getCarburant() {
+        return carburant;
+    }
+
+    public void setCarburant(CarburantEntity carburant) {
+        this.carburant = carburant;
+    }
+
+    public VitesseEntity getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(VitesseEntity vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public ClimatisationEntity getClimatisation() {
+        return climatisation;
+    }
+
+    public void setClimatisation(ClimatisationEntity climatisation) {
+        this.climatisation = climatisation;
     }
 }

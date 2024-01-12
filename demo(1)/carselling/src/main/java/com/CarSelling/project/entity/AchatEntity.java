@@ -14,12 +14,13 @@ public class AchatEntity {
     @Basic
     @Column(name = "idannonce")
     private Integer idannonce;
-    @Basic
-    @Column(name = "idclient")
-    private Integer idclient;
+
     @Basic
     @Column(name = "etat")
     private Integer etat;
+    @ManyToOne
+    @JoinColumn(name = "idclient", referencedColumnName = "idutilisateur")
+    private UtilisateurEntity utilisateurByIdclient;
 
     public Integer getIdachat() {
         return idachat;
@@ -37,14 +38,6 @@ public class AchatEntity {
         this.idannonce = idannonce;
     }
 
-    public Integer getIdclient() {
-        return idclient;
-    }
-
-    public void setIdclient(Integer idclient) {
-        this.idclient = idclient;
-    }
-
     public Integer getEtat() {
         return etat;
     }
@@ -53,16 +46,13 @@ public class AchatEntity {
         this.etat = etat;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AchatEntity that = (AchatEntity) o;
-        return Objects.equals(idachat, that.idachat) && Objects.equals(idannonce, that.idannonce) && Objects.equals(idclient, that.idclient) && Objects.equals(etat, that.etat);
+
+
+    public UtilisateurEntity getUtilisateurByIdclient() {
+        return utilisateurByIdclient;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idachat, idannonce, idclient, etat);
+    public void setUtilisateurByIdclient(UtilisateurEntity utilisateurByIdclient) {
+        this.utilisateurByIdclient = utilisateurByIdclient;
     }
 }
