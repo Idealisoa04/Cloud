@@ -8,6 +8,8 @@ CREATE SEQUENCE "public".climatisation_idclimatisation_seq START WITH 1 INCREMEN
 
 CREATE SEQUENCE "public".favoris_id_seq START WITH 1 INCREMENT BY 1;
 
+CREATE SEQUENCE "public".jante_idjante_seq START WITH 1 INCREMENT BY 1;
+
 CREATE SEQUENCE "public".marque_idmarque_seq START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".model_idmarque_seq START WITH 1 INCREMENT BY 1;
@@ -38,6 +40,12 @@ CREATE  TABLE "public".climatisation (
 	CONSTRAINT pk_climatisation PRIMARY KEY ( idclimatisation )
  );
 
+CREATE  TABLE "public".jante ( 
+	idjante              integer DEFAULT nextval('jante_idjante_seq'::regclass) NOT NULL  ,
+	nomjante             varchar    ,
+	CONSTRAINT pk_jante PRIMARY KEY ( idjante )
+ );
+
 CREATE  TABLE "public".marque ( 
 	idmarque             integer DEFAULT nextval('marque_idmarque_seq'::regclass) NOT NULL  ,
 	nommarque            varchar    ,
@@ -59,7 +67,7 @@ CREATE  TABLE "public".utilisateur (
 	sexe                 integer    ,
 	email                varchar    ,
 	mdp                  varchar    ,
-	isadmin              varchar    ,
+	isadmin              integer DEFAULT 0   ,
 	CONSTRAINT pk_utilisateur PRIMARY KEY ( idutilisateur )
  );
 
@@ -71,7 +79,7 @@ CREATE  TABLE "public".vitesse (
 
 CREATE  TABLE "public".achat ( 
 	idachat              integer DEFAULT nextval('achat_idachat_seq'::regclass) NOT NULL  ,
-	idannonce            integer    ,
+	idannonce            varchar    ,
 	idclient             integer    ,
 	etat                 integer    ,
 	CONSTRAINT pk_achat PRIMARY KEY ( idachat ),
@@ -80,7 +88,7 @@ CREATE  TABLE "public".achat (
 
 CREATE  TABLE "public".favoris ( 
 	id                   integer DEFAULT nextval('favoris_id_seq'::regclass) NOT NULL  ,
-	idannonce            integer    ,
+	idannonce            varchar    ,
 	id_utilisateur       integer    ,
 	etat                 integer    ,
 	CONSTRAINT pk_favoris PRIMARY KEY ( id ),
