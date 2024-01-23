@@ -25,30 +25,35 @@ CREATE SEQUENCE "public".vitesse_idvitesse_seq START WITH 1 INCREMENT BY 1;
 CREATE  TABLE "public".carburant ( 
 	idcarburant          integer DEFAULT nextval('carburant_idcarburant_seq'::regclass) NOT NULL  ,
 	nomcarburant         varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_carburant PRIMARY KEY ( idcarburant )
  );
 
 CREATE  TABLE "public".categorie ( 
 	idcategorie          integer DEFAULT nextval('categorie_idcategorie_seq'::regclass) NOT NULL  ,
 	nomcategorie         varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_categorie PRIMARY KEY ( idcategorie )
  );
 
 CREATE  TABLE "public".climatisation ( 
 	idclimatisation      integer DEFAULT nextval('climatisation_idclimatisation_seq'::regclass) NOT NULL  ,
 	nomclimatisation     varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_climatisation PRIMARY KEY ( idclimatisation )
  );
 
 CREATE  TABLE "public".jante ( 
 	idjante              integer DEFAULT nextval('jante_idjante_seq'::regclass) NOT NULL  ,
 	nomjante             varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_jante PRIMARY KEY ( idjante )
  );
 
 CREATE  TABLE "public".marque ( 
 	idmarque             integer DEFAULT nextval('marque_idmarque_seq'::regclass) NOT NULL  ,
 	nommarque            varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_marque PRIMARY KEY ( idmarque )
  );
 
@@ -56,6 +61,7 @@ CREATE  TABLE "public".moteur (
 	idmoteur             integer DEFAULT nextval('moteur_idmoteur_seq'::regclass) NOT NULL  ,
 	capacite             double precision    ,
 	nom                  varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_moteur PRIMARY KEY ( idmoteur )
  );
 
@@ -74,6 +80,7 @@ CREATE  TABLE "public".utilisateur (
 CREATE  TABLE "public".vitesse ( 
 	idvitesse            integer DEFAULT nextval('vitesse_idvitesse_seq'::regclass) NOT NULL  ,
 	nomvitesse           varchar    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_vitesse PRIMARY KEY ( idvitesse )
  );
 
@@ -102,8 +109,8 @@ CREATE  TABLE "public".model (
 	id_marque            integer DEFAULT nextval('model_idmarque_seq'::regclass) NOT NULL  ,
 	id_carburant         integer    ,
 	id_vitesse           integer    ,
-	nb_portes            integer    ,
 	id_climatisation     integer    ,
+	etat                 integer DEFAULT 1   ,
 	CONSTRAINT pk_model PRIMARY KEY ( idmodel ),
 	CONSTRAINT fk_model_carburant FOREIGN KEY ( id_carburant ) REFERENCES "public".carburant( idcarburant )   ,
 	CONSTRAINT fk_model_categorie FOREIGN KEY ( id_categorie ) REFERENCES "public".categorie( idcategorie )   ,
@@ -111,3 +118,23 @@ CREATE  TABLE "public".model (
 	CONSTRAINT fk_model_marque FOREIGN KEY ( id_marque ) REFERENCES "public".marque( idmarque )   ,
 	CONSTRAINT fk_model_vitesse FOREIGN KEY ( id_vitesse ) REFERENCES "public".vitesse( idvitesse )   
  );
+
+CREATE VIEW "public".v_model AS  SELECT model.idmodel,
+    model.nommodel,
+    model.etat,
+    model.id_categorie,
+    categorie.nomcategorie,
+    model.id_marque,
+    marque.nommarque,
+    model.id_climatisation,
+    climatisation.nomclimatisation,
+    model.id_carburant,
+    carburant.nomcarburant,
+    model.id_vitesse,
+    vitesse.nomvitesse
+   FROM (((((model
+     JOIN categorie ON ((model.id_categorie = categorie.idcategorie)))
+     JOIN marque ON ((model.id_marque = marque.idmarque)))
+     JOIN climatisation ON ((model.id_climatisation = climatisation.idclimatisation)))
+     JOIN carburant ON ((model.id_carburant = carburant.idcarburant)))
+     JOIN vitesse ON ((model.id_vitesse = vitesse.idvitesse)));
