@@ -21,21 +21,26 @@ public class ModelEntity {
     @Column(name = "nommodel")
     private String nommodel;
 
-    @Column(name = "nbPortes")
-    private Integer nbPortes;
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
 
     @ManyToOne
     @JoinColumn(name = "id_categorie", referencedColumnName = "idcategorie")
     private CategorieEntity categorie;
+
     @ManyToOne
     @JoinColumn(name = "id_marque", referencedColumnName = "idmarque", nullable = false)
     private MarqueEntity marque;
+
     @ManyToOne
     @JoinColumn(name = "id_carburant", referencedColumnName = "idcarburant")
     private CarburantEntity carburant;
+
     @ManyToOne
     @JoinColumn(name = "id_vitesse", referencedColumnName = "idvitesse")
     private VitesseEntity vitesse;
+
     @ManyToOne
     @JoinColumn(name = "id_climatisation", referencedColumnName = "idclimatisation")
     private ClimatisationEntity climatisation;
@@ -54,14 +59,6 @@ public class ModelEntity {
 
     public void setNommodel(String nommodel) {
         this.nommodel = nommodel;
-    }
-
-    public Integer getNbPortes() {
-        return nbPortes;
-    }
-
-    public void setNbPortes(Integer nbPortes) {
-        this.nbPortes = nbPortes;
     }
 
     public CategorieEntity getCategorie() {
@@ -102,5 +99,13 @@ public class ModelEntity {
 
     public void setClimatisation(ClimatisationEntity climatisation) {
         this.climatisation = climatisation;
+    }
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
     }
 }

@@ -14,6 +14,9 @@ public class JanteEntity {
     @Basic
     @Column(name = "nomjante")
     private String nomjante;
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
 
     public Integer getIdjante() {
         return idjante;
@@ -29,6 +32,14 @@ public class JanteEntity {
 
     public void setNomjante(String nomjante) {
         this.nomjante = nomjante;
+    }
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
     }
 
     @Override

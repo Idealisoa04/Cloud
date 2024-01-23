@@ -15,8 +15,20 @@ public class ClimatisationEntity {
     @Basic
     @Column(name = "nomclimatisation")
     private String nomclimatisation;
+
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
     @OneToMany(mappedBy = "climatisation")
     private Collection<ModelEntity> modelsByIdclimatisation;
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
+    }
 
     public Integer getIdclimatisation() {
         return idclimatisation;

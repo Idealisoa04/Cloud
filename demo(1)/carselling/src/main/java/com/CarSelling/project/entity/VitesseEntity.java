@@ -15,6 +15,10 @@ public class VitesseEntity {
     @Basic
     @Column(name = "nomvitesse")
     private String nomvitesse;
+
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
     @OneToMany(mappedBy = "vitesse")
     private Collection<ModelEntity> modelsByIdvitesse;
 
@@ -40,6 +44,14 @@ public class VitesseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         VitesseEntity that = (VitesseEntity) o;
         return Objects.equals(idvitesse, that.idvitesse) && Objects.equals(nomvitesse, that.nomvitesse);
+    }
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
     }
 
     @Override

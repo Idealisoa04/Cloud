@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.CarSelling.project.entity.AnnonceEntity;
@@ -13,6 +17,12 @@ import com.CarSelling.project.repository.AnnonceRepository;
 public class AnnonceService {
     @Autowired
     private AnnonceRepository annonceRepository;
+
+    private final MongoTemplate mongoTemplate;
+
+    public AnnonceService(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     public List<AnnonceEntity> getAnnonceByEtat(Integer etat) {
         return annonceRepository.findByEtat(etat);
@@ -56,11 +66,52 @@ public class AnnonceService {
         throw new Exception("l annonce n existe pas");
     }
 
-    public void DeleteAnnonce(AnnonceEntity annonceEntity) {
-        this.annonceRepository.delete(annonceEntity);
+    public String deleteAnnonce(AnnonceEntity annonceEntity) {
+        try {
+            this.annonceRepository.delete(annonceEntity);
+        } catch (
+
+        Exception e) {
+            throw e;
+        }
+        return "ok";
     }
 
-    public void DeleteAnnonceById(ObjectId idannonce) {
-        this.annonceRepository.deleteById(idannonce);
+    public String deleteAnnonceById(ObjectId idannonce) {
+        try {
+            this.annonceRepository.deleteById(idannonce);
+        } catch (Exception e) {
+            throw e;
+        }
+        return "ok";
+    }
+
+    public String updateEtat(ObjectId id, Integer etat) {
+        try {
+            mongoTemplate.updateFirst(
+                    Query.query(Criteria.where("_id").is(id)),
+                    new Update().set("etat", etat),
+                    AnnonceEntity.class);
+        } catch (Exception e) {
+            throw e;
+        }
+        return "ok";
+    }
+
+    public List<AnnonceEntity> getAllByIdAnnonces(Iterable<ObjectId> _ids) {
+        return this.annonceRepository.findAllById(_ids);
+    }
+
+    public String updateStatut(ObjectId id, Integer statut) throws Exception {
+        try {
+            mongoTemplate.updateFirst(
+                    Query.query(Criteria.where("_id").is(id)),
+                    new Update().set("statut", statut),
+                    AnnonceEntity.class);
+        } catch (Exception e) {
+            throw e;
+        }
+        return "ok";
+
     }
 }

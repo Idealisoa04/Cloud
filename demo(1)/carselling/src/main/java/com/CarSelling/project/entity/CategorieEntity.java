@@ -15,8 +15,22 @@ public class CategorieEntity {
     @Basic
     @Column(name = "nomcategorie")
     private String nomcategorie;
+
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
+    }
+
     @OneToMany(mappedBy = "categorie")
     private Collection<ModelEntity> modelsByIdcategorie;
+
 
     public Integer getIdcategorie() {
         return idcategorie;

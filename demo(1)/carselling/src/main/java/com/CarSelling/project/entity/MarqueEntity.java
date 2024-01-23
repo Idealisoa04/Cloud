@@ -15,6 +15,19 @@ public class MarqueEntity {
     @Basic
     @Column(name = "nommarque")
     private String nommarque;
+
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
+    }
+
     @OneToMany(mappedBy = "marque")
     private Collection<ModelEntity> modelsByIdmarque;
 

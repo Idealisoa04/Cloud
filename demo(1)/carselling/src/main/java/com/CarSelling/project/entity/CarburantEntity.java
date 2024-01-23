@@ -15,6 +15,18 @@ public class CarburantEntity {
     @Basic
     @Column(name = "nomcarburant")
     private String nomcarburant;
+
+    public Integer getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Integer etat) {
+        this.etat = etat;
+    }
+
+    @Basic
+    @Column(name = "etat")
+    private Integer etat;
     @OneToMany(mappedBy = "carburant")
     private Collection<ModelEntity> modelsByIdcarburant;
 
