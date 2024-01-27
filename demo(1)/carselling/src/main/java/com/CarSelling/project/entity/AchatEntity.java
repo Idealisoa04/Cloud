@@ -1,8 +1,14 @@
 package com.CarSelling.project.entity;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "achat", schema = "public", catalog = "carselling")
@@ -13,11 +19,8 @@ public class AchatEntity {
     private Integer idachat;
     @Basic
     @Column(name = "idannonce")
-    private Integer idannonce;
+    private String idannonce;
 
-    @Basic
-    @Column(name = "etat")
-    private Integer etat;
     @ManyToOne
     @JoinColumn(name = "idclient", referencedColumnName = "idutilisateur")
     private UtilisateurEntity utilisateurByIdclient;
@@ -30,24 +33,6 @@ public class AchatEntity {
         this.idachat = idachat;
     }
 
-    public Integer getIdannonce() {
-        return idannonce;
-    }
-
-    public void setIdannonce(Integer idannonce) {
-        this.idannonce = idannonce;
-    }
-
-    public Integer getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Integer etat) {
-        this.etat = etat;
-    }
-
-
-
     public UtilisateurEntity getUtilisateurByIdclient() {
         return utilisateurByIdclient;
     }
@@ -55,4 +40,13 @@ public class AchatEntity {
     public void setUtilisateurByIdclient(UtilisateurEntity utilisateurByIdclient) {
         this.utilisateurByIdclient = utilisateurByIdclient;
     }
+
+    public String getIdannonce() {
+        return idannonce;
+    }
+
+    public void setIdannonce(String idannonce) {
+        this.idannonce = idannonce;
+    }
+
 }

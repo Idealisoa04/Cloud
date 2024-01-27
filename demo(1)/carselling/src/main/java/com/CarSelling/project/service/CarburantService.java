@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.CarburantEntity;
 import com.CarSelling.project.repository.CarburantRepository;
@@ -31,6 +32,7 @@ public class CarburantService {
 
     }
 
+    @Transactional
     public CarburantEntity updateCarburant(CarburantEntity carburantEntity) throws Exception {
         try {
             CarburantEntity to_update = this.carburantRepository.getReferenceById(carburantEntity.getIdcarburant());

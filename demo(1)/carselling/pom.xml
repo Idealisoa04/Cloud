@@ -55,7 +55,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>8.2.0</version> <!-- Assurez-vous de vérifier la dernière version disponible -->
+		</dependency>
+		
+		
+		
+	
+   <dependency>
+     <groupId>com.liferay.portal</groupId>
+     <artifactId>com.liferay.portal.kernel</artifactId>
+     <version>4.27.1</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>

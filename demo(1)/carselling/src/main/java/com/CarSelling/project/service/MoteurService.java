@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.MoteurEntity;
 import com.CarSelling.project.repository.MoteurRepository;
@@ -21,6 +22,7 @@ public class MoteurService {
         return this.moteurRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public MoteurEntity createNewMoteur(MoteurEntity moteurEntity) throws Exception {
         try {
             moteurEntity.setEtat(1);
@@ -34,6 +36,7 @@ public class MoteurService {
 
     }
 
+    @Transactional
     public MoteurEntity updateMoteur(MoteurEntity moteurEntity) throws Exception {
         try {
             MoteurEntity to_update = this.moteurRepository.getReferenceById(moteurEntity.getIdmoteur());

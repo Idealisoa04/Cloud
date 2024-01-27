@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.JanteEntity;
 import com.CarSelling.project.repository.JanteRepository;
@@ -21,6 +22,7 @@ public class JanteService {
         return this.janteRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public JanteEntity createNewJante(JanteEntity janteEntity) {
         try {
             janteEntity.setEtat(1);
@@ -31,6 +33,7 @@ public class JanteService {
 
     }
 
+    @Transactional
     public JanteEntity updateJante(JanteEntity janteEntity) throws Exception {
         try {
             JanteEntity to_update = this.janteRepository.getReferenceById(janteEntity.getIdjante());

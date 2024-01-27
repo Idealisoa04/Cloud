@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.FavorisEntity;
 import com.CarSelling.project.repository.FavorisRepository;
@@ -18,6 +19,7 @@ public class FavorisService {
                 etat);
     }
 
+    @Transactional
     public void addnewFavoris(FavorisEntity favorisEntity) throws Exception {
         try {
             favorisEntity.setEtat(1);
@@ -27,6 +29,7 @@ public class FavorisService {
         }
     }
 
+    @Transactional
     public void removeFromFavoris(Integer idfavoris) throws Exception {
         try {
             FavorisEntity fav = this.favorisRepository.getReferenceById(idfavoris);

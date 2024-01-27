@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.ClimatisationEntity;
 import com.CarSelling.project.repository.ClimatisationRepository;
@@ -21,6 +22,7 @@ public class ClimatisationService {
         return this.carburantRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public ClimatisationEntity createNewClimatisation(ClimatisationEntity climatisationEntity) throws Exception {
         try {
             climatisationEntity.setEtat(1);
@@ -31,6 +33,7 @@ public class ClimatisationService {
 
     }
 
+    @Transactional
     public ClimatisationEntity updateClimatisation(ClimatisationEntity climatisationEntity) throws Exception {
         try {
             ClimatisationEntity to_update = this.carburantRepository

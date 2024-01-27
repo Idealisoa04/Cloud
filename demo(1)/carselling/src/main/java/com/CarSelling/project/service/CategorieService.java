@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.CategorieEntity;
 import com.CarSelling.project.repository.CategorieRepository;
@@ -21,6 +22,7 @@ public class CategorieService {
         return this.categorieRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public CategorieEntity createNewCategorie(CategorieEntity categorieEntity) throws Exception {
         try {
             categorieEntity.setEtat(1);
@@ -31,6 +33,7 @@ public class CategorieService {
 
     }
 
+    @Transactional
     public CategorieEntity updateCategorie(CategorieEntity categorieEntity) throws Exception {
         try {
             CategorieEntity to_update = this.categorieRepository.getReferenceById(categorieEntity.getIdcategorie());

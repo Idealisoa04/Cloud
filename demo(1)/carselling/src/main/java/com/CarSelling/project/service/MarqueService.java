@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.MarqueEntity;
 import com.CarSelling.project.repository.MarqueRepository;
@@ -21,6 +22,7 @@ public class MarqueService {
         return this.marqueRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public MarqueEntity createNewMarque(MarqueEntity marqueEntity) throws Exception {
         try {
             marqueEntity.setEtat(1);
@@ -31,6 +33,7 @@ public class MarqueService {
 
     }
 
+    @Transactional
     public MarqueEntity updateMarque(MarqueEntity marqueEntity) throws Exception {
         try {
             MarqueEntity to_update = this.marqueRepository.getReferenceById(marqueEntity.getIdmarque());

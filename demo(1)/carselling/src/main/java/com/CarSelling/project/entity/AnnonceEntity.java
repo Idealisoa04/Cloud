@@ -1,6 +1,7 @@
 package com.CarSelling.project.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,9 @@ public class AnnonceEntity {
     public void set_id(ObjectId _id) {
         this._id = _id;
     }
+
+    @Field(name = "id_user")
+    private Integer id_user;
 
     @Field(name = "date")
     // private Timestamp date;
@@ -51,6 +55,12 @@ public class AnnonceEntity {
 
     @Field(name = "couleur")
     private String couleur;
+
+    @Field(name = "photos")
+    private List<String> photos;
+
+    @Field(name = "commission")
+    private Double commission;
 
     public LocalDateTime getDate() {
         return date;
@@ -130,6 +140,30 @@ public class AnnonceEntity {
 
     public void setCouleur(String couleur) {
         this.couleur = couleur;
+    }
+
+    public Integer getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(Integer id_user) {
+        this.id_user = id_user;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
+    public Double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(Double commission) {
+        this.commission = commission;
     }
 
 }

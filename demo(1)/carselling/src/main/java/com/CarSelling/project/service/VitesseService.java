@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.VitesseEntity;
 import com.CarSelling.project.repository.VitesseRepository;
@@ -21,6 +22,7 @@ public class VitesseService {
         return this.vitesseRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public VitesseEntity createNewVitesse(VitesseEntity vitesseEntity) throws Exception {
         try {
             return this.vitesseRepository.save(vitesseEntity);
@@ -30,6 +32,7 @@ public class VitesseService {
 
     }
 
+    @Transactional
     public VitesseEntity updateVitesse(VitesseEntity vitesseEntity) throws Exception {
         try {
             VitesseEntity to_update = this.vitesseRepository.getReferenceById(vitesseEntity.getIdvitesse());

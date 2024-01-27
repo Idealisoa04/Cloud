@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.AnnonceEntity;
 import com.CarSelling.project.repository.AnnonceRepository;
@@ -41,10 +42,13 @@ public class AnnonceService {
 
     }
 
+    @Transactional
     public AnnonceEntity createAnnonce(AnnonceEntity annonce) {
+        annonce.setEtat(0);
         return this.annonceRepository.save(annonce);
     }
 
+    @Transactional
     public AnnonceEntity updateAnnonce(AnnonceEntity annonce) throws Exception {
         List<AnnonceEntity> updated_option = this.annonceRepository.findBy_id(annonce.get_id());
         if (updated_option.size() > 0) {
@@ -86,11 +90,14 @@ public class AnnonceService {
         return "ok";
     }
 
-    public String updateEtat(ObjectId id, Integer etat) {
+    @Transactional
+    public String updateEtat(ObjectId id, Integer etat, Double commission) throws Exception {
         try {
             mongoTemplate.updateFirst(
                     Query.query(Criteria.where("_id").is(id)),
-                    new Update().set("etat", etat),
+                    new Update()
+                            .set("etat", etat)
+                            .set("commission", commission), // Ajout de la mise à jour de la commission
                     AnnonceEntity.class);
         } catch (Exception e) {
             throw e;
@@ -102,6 +109,7 @@ public class AnnonceService {
         return this.annonceRepository.findAllById(_ids);
     }
 
+    @Transactional
     public String updateStatut(ObjectId id, Integer statut) throws Exception {
         try {
             mongoTemplate.updateFirst(

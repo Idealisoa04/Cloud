@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CarSelling.project.entity.ModelEntity;
 import com.CarSelling.project.entity.VModelEntity;
@@ -18,7 +19,7 @@ public class ModelService {
     private VModelRepository vModelRepository;
 
     public ModelEntity createNewModel(ModelEntity modelEntity) {
-
+        modelEntity.setEtat(1);
         return this.modelRepository.save(modelEntity);
     }
 
@@ -34,6 +35,7 @@ public class ModelService {
         return this.vModelRepository.findAllByIdAndEtat(id, 1);
     }
 
+    @Transactional
     public ModelEntity updateModel(ModelEntity modelEntity) throws Exception {
         try {
             ModelEntity to_update = this.modelRepository.getReferenceById(modelEntity.getIdmodel());

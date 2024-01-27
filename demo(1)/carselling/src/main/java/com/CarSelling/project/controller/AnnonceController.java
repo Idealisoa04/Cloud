@@ -1,6 +1,7 @@
 package com.CarSelling.project.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.CarSelling.project.entity.AnnonceEntity;
 import com.CarSelling.project.service.AnnonceService;
+import com.CarSelling.project.tools.FileUploader;
 
 @RestController
 @RequestMapping(path = "/api/annoncecontroller", method = RequestMethod.GET)
@@ -48,13 +50,28 @@ public class AnnonceController {
         return ResponseEntity.ok(this.annonceService.getAnnonceByEtat(etat));
     }
 
-    @PostMapping("/add")
+    @PostMapping(path = "/add", consumes = "application/json")
     public ResponseEntity<Object> addNewAnnonce(@RequestBody AnnonceEntity annonceEntity) {
+
         LocalDateTime currentDateTime = LocalDateTime.now();
         annonceEntity.setDate(currentDateTime);
+        FileUploader fileUploader = new FileUploader();
         try {
+            List<String> urls = new ArrayList();
+            String url = null;
+
+            for (String s : annonceEntity.getPhotos()) {
+                s = s.split("data:image/jpeg;base64,")[1];
+                // System.out.println(s);
+                url = fileUploader.uploadImage(s);
+                System.out.println(url + " url");
+                urls.add(url);
+            }
+            annonceEntity.setPhotos(urls);
+            annonceEntity.setEtat(0);
             return ResponseEntity.ok(this.annonceService.createAnnonce(annonceEntity));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
@@ -89,10 +106,12 @@ public class AnnonceController {
     }
 
     @PutMapping("/updateEtat") // valider ou pas
-    public ResponseEntity<String> updateEtat(@RequestParam("id") ObjectId id, @RequestParam("etat") Integer etat) {
+    public ResponseEntity<String> updateEtat(@RequestParam("id") ObjectId id, @RequestParam("etat") Integer etat,
+            @RequestParam("commission") Double commission) {
 
         try {
-            return ResponseEntity.ok(this.annonceService.updateEtat(id, etat));
+
+            return ResponseEntity.ok(this.annonceService.updateEtat(id, etat, commission));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
